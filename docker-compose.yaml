@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  jenkins_lms:
+    build:
+      context: /home/mamai/jenkins
+      dockerfile: Dockerfile
+    image: my-custom-jenkins:latest
+    container_name: jenkins_home
+    environment:
+      - TZ=Europe/Moscow
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins:/var/jenkins_home
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    user: root
